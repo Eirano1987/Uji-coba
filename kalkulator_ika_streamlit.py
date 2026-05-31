@@ -345,7 +345,7 @@ if hitung:
         return "color: #e74c3c; font-weight: bold"
 
     st.dataframe(
-        df.style.applymap(warnai_status, subset=["Status"]),
+       df.style.map(warnai_status, subset=["Status"]),
         use_container_width=True,
         hide_index=True
     )
