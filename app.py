@@ -9,35 +9,36 @@ import numpy as np
 #  PAGE CONFIG
 # ─────────────────────────────────────────────
 st.set_page_config(
-    page_title="AquaChem IKA",
-    page_icon="💧",
+    page_title="AquaChem IKA Pro",
+    page_icon="⚛️",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
 # ─────────────────────────────────────────────
-#  GLOBAL CSS — TEMA: AURORA SCIENTIFIC
+#  GLOBAL CSS — TEMA: MICRO-ATOMIC BIO-CHEMISTRY
 # ─────────────────────────────────────────────
+# Menggunakan palet neon kuantum (deep indigo/teal) dengan aksen bio-partikel, elektron, kation/anion
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    --bg:      #F0F4F8;
-    --surface: #FFFFFF;
-    --card:    #FFFFFF;
-    --border:  #DDE3ED;
-    --emerald: #059669;
-    --emerald2:#047857;
-    --teal:    #0D9488;
-    --amber:   #D97706;
-    --red:     #DC2626;
-    --text:    #1A202C;
-    --muted:   #64748B;
-    --light:   #F8FAFC;
-    --good:    #059669;
-    --warn:    #D97706;
-    --bad:     #DC2626;
+    --bg:      #0b0f19;
+    --surface: #141b2d;
+    --card:    #1f293d;
+    --border:  #2d3d5a;
+    --emerald: #00f5a0;
+    --emerald2:#00d184;
+    --teal:    #00d2ff;
+    --amber:   #ffb300;
+    --red:     #ff4a4a;
+    --text:    #e2e8f0;
+    --muted:   #94a3b8;
+    --light:   #1e293b;
+    --good:    #00f5a0;
+    --warn:    #ffb300;
+    --bad:     #ff4a4a;
 }
 
 html, body, [class*="css"] {
@@ -58,35 +59,39 @@ section[data-testid="stSidebar"] .stMarkdown p { color: var(--muted) !important;
 
 /* ── Hero Banner ── */
 .hero {
-    background: linear-gradient(135deg, #064E3B 0%, #065F46 40%, #0F766E 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #115e59 100%);
     border-radius: 20px;
     padding: 44px 40px 36px;
     margin-bottom: 28px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(5, 150, 105, 0.25);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    border: 1px solid rgba(0, 245, 160, 0.2);
 }
+/* Efek Ornamen Sains (Elektron Orbit & Partikel Bakteri) */
 .hero::before {
-    content: "";
+    content: "⚡ e⁻ [OH]⁻ [H]⁺ 🦠";
     position: absolute;
-    top: -80px; right: -40px;
-    width: 320px; height: 320px;
-    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 65%);
-    border-radius: 50%;
+    top: 15px; right: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.2rem;
+    color: rgba(0, 245, 160, 0.25);
+    letter-spacing: 5px;
 }
 .hero::after {
-    content: "";
+    content: "✨ [Ca]²⁺ [SO₄]²⁻ 🔬";
     position: absolute;
-    bottom: -60px; left: 5%;
-    width: 180px; height: 180px;
-    background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
-    border-radius: 50%;
+    bottom: 15px; left: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1rem;
+    color: rgba(0, 210, 255, 0.2);
+    letter-spacing: 4px;
 }
 .hero-badge {
     display: inline-block;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
-    color: #A7F3D0;
+    background: rgba(0, 245, 160, 0.1);
+    border: 1px solid rgba(0, 245, 160, 0.3);
+    color: #00f5a0;
     border-radius: 20px;
     padding: 4px 14px;
     font-size: 0.72rem;
@@ -102,15 +107,13 @@ section[data-testid="stSidebar"] .stMarkdown p { color: var(--muted) !important;
     color: #FFFFFF;
     margin: 0 0 10px 0;
     line-height: 1.2;
-    text-shadow: 0 2px 20px rgba(0,0,0,0.2);
 }
-.hero-title span { color: #6EE7B7; }
+.hero-title span { color: #00d2ff; }
 .hero-sub {
-    color: #A7F3D0;
+    color: var(--muted);
     font-size: 1rem;
     margin: 0;
     font-weight: 400;
-    opacity: 0.9;
 }
 
 /* ── Param Cards ── */
@@ -120,12 +123,12 @@ section[data-testid="stSidebar"] .stMarkdown p { color: var(--muted) !important;
     border-radius: 16px;
     padding: 26px 22px;
     height: 100%;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     transition: all 0.2s ease;
 }
 .param-card:hover {
     border-color: var(--emerald);
-    box-shadow: 0 8px 30px rgba(5,150,105,0.12);
+    box-shadow: 0 8px 30px rgba(0, 245, 160, 0.15);
     transform: translateY(-2px);
 }
 .param-title {
@@ -138,9 +141,9 @@ section[data-testid="stSidebar"] .stMarkdown p { color: var(--muted) !important;
 }
 .param-fullname { color: var(--muted); font-size: 0.78rem; margin-bottom: 16px; }
 .param-value {
-    font-size: 2.8rem;
+    font-size: 2.5rem;
     font-weight: 800;
-    color: var(--text);
+    color: #ffffff;
     line-height: 1;
     margin-bottom: 4px;
     font-family: 'IBM Plex Mono', monospace;
@@ -156,16 +159,16 @@ section[data-testid="stSidebar"] .stMarkdown p { color: var(--muted) !important;
     font-weight: 700;
     letter-spacing: 0.3px;
 }
-.status-good { background: #D1FAE5; color: #065F46; border: 1.5px solid #6EE7B7; }
-.status-warn { background: #FEF3C7; color: #92400E; border: 1.5px solid #FCD34D; }
-.status-bad  { background: #FEE2E2; color: #991B1B; border: 1.5px solid #FCA5A5; }
+.status-good { background: rgba(0, 245, 160, 0.15); color: #00f5a0; border: 1.5px solid #00f5a0; }
+.status-warn { background: rgba(255, 179, 0, 0.15); color: #ffb300; border: 1.5px solid #ffb300; }
+.status-bad  { background: rgba(255, 74, 74, 0.15); color: #ff4a4a; border: 1.5px solid #ff4a4a; }
 
 /* ── Section Header ── */
 .sec-head {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.72rem;
     letter-spacing: 2.5px;
-    color: var(--emerald);
+    color: var(--teal);
     text-transform: uppercase;
     margin: 36px 0 18px 0;
     display: flex;
@@ -179,72 +182,52 @@ section[data-testid="stSidebar"] .stMarkdown p { color: var(--muted) !important;
     background: var(--border);
 }
 
-/* ── IKA Score ── */
-.ika-ring { text-align: center; padding: 16px 0; }
-.ika-score {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 4rem;
-    font-weight: 700;
-    line-height: 1;
-}
-.ika-label { font-size: 0.85rem; color: var(--muted); margin-top: 8px; font-weight: 500; }
-.ika-cat   { font-size: 1.1rem; font-weight: 700; margin-top: 10px; }
-
 /* ── Info Boxes ── */
 .info-box {
-    background: #ECFDF5;
-    border: 1px solid #6EE7B7;
+    background: rgba(0, 245, 160, 0.05);
+    border: 1px solid rgba(0, 245, 160, 0.2);
     border-left: 4px solid var(--emerald);
     border-radius: 10px;
     padding: 14px 18px;
     font-size: 0.88rem;
-    color: #065F46;
+    color: #e2e8f0;
     margin: 10px 0;
-    line-height: 1.6;
 }
 .warn-box {
-    background: #FFFBEB;
-    border: 1px solid #FCD34D;
+    background: rgba(255, 179, 0, 0.05);
+    border: 1px solid rgba(255, 179, 0, 0.2);
     border-left: 4px solid var(--amber);
     border-radius: 10px;
     padding: 14px 18px;
     font-size: 0.88rem;
-    color: #78350F;
+    color: #e2e8f0;
     margin: 10px 0;
-    line-height: 1.6;
 }
 .bad-box {
-    background: #FFF1F2;
-    border: 1px solid #FCA5A5;
+    background: rgba(255, 74, 74, 0.05);
+    border: 1px solid rgba(255, 74, 74, 0.2);
     border-left: 4px solid var(--red);
     border-radius: 10px;
     padding: 14px 18px;
     font-size: 0.88rem;
-    color: #7F1D1D;
+    color: #e2e8f0;
     margin: 10px 0;
-    line-height: 1.6;
 }
 
 /* ── Reference Table ── */
-.ref-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.ref-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; background: var(--card); border-radius: 8px; overflow: hidden; }
 .ref-table th {
-    background: #ECFDF5;
-    color: var(--emerald2);
+    background: var(--surface);
+    color: var(--teal);
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.75rem;
     padding: 12px 16px;
     text-align: left;
     border-bottom: 2px solid var(--border);
     text-transform: uppercase;
-    letter-spacing: 1px;
 }
-.ref-table td {
-    padding: 11px 16px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text);
-}
-.ref-table tr:last-child td { border-bottom: none; }
-.ref-table tr:hover td { background: #F0FDF4; }
+.ref-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); color: var(--text); }
+.ref-table tr:hover td { background: rgba(255,255,255,0.02); }
 
 /* ── About Card ── */
 .about-card {
@@ -253,7 +236,6 @@ section[data-testid="stSidebar"] .stMarkdown p { color: var(--muted) !important;
     border-radius: 16px;
     padding: 28px 26px;
     margin-bottom: 18px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
 }
 .about-label {
     font-family: 'IBM Plex Mono', monospace;
@@ -263,94 +245,51 @@ section[data-testid="stSidebar"] .stMarkdown p { color: var(--muted) !important;
     text-transform: uppercase;
     margin-bottom: 8px;
 }
-.about-title { font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+.about-title { font-size: 1.2rem; font-weight: 700; color: #ffffff; margin-bottom: 10px; }
 .about-body  { color: var(--muted); font-size: 0.9rem; line-height: 1.75; }
-
-/* ── Metric Strip ── */
-.metric-strip { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
-.metric-item {
-    background: var(--card);
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    padding: 16px 22px;
-    flex: 1;
-    min-width: 120px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-.metric-num {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--emerald);
-}
-.metric-desc { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
 
 /* ── Streamlit Overrides ── */
 .stButton > button {
-    background: linear-gradient(135deg, #059669, #0D9488);
-    color: white !important;
+    background: linear-gradient(135deg, #00f5a0, #00d2ff);
+    color: #0f172a !important;
     border: none !important;
     border-radius: 10px !important;
     font-family: 'IBM Plex Mono', monospace !important;
-    font-size: 0.82rem !important;
-    letter-spacing: 1px !important;
+    font-weight: 700 !important;
     padding: 10px 24px !important;
-    transition: all 0.2s !important;
     width: 100%;
-    box-shadow: 0 4px 14px rgba(5,150,105,0.3) !important;
+    box-shadow: 0 4px 14px rgba(0, 245, 160, 0.2) !important;
 }
 .stButton > button:hover {
     transform: translateY(-1px) !important;
-    box-shadow: 0 8px 20px rgba(5,150,105,0.4) !important;
+    box-shadow: 0 6px 20px rgba(0, 245, 160, 0.4) !important;
 }
 
 div[data-testid="stExpander"] {
     background: var(--card) !important;
     border: 1.5px solid var(--border) !important;
     border-radius: 12px !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
 }
-div[data-testid="stExpander"] summary { color: var(--text) !important; font-weight: 600; }
 
 /* Tabs */
 .stTabs [data-baseweb="tab-list"] {
-    background: #FFFFFF;
+    background: var(--surface);
     border-radius: 12px;
     padding: 5px;
-    gap: 4px;
     border: 1.5px solid var(--border);
 }
 .stTabs [data-baseweb="tab"] {
-    background: transparent !important;
     color: var(--muted) !important;
-    border-radius: 8px !important;
-    font-family: 'Inter', sans-serif;
     font-size: 0.85rem;
     font-weight: 600;
 }
 .stTabs [aria-selected="true"] {
-    background: linear-gradient(135deg, #D1FAE5, #CCFBF1) !important;
-    color: #065F46 !important;
+    background: rgba(0, 210, 255, 0.15) !important;
+    color: #00d2ff !important;
 }
 
-/* Number inputs */
-div[data-testid="stNumberInput"] input {
-    background: var(--light) !important;
-    border: 1.5px solid var(--border) !important;
-    border-radius: 8px !important;
-    color: var(--text) !important;
-    font-family: 'IBM Plex Mono', monospace !important;
-}
-div[data-testid="stNumberInput"] input:focus {
-    border-color: var(--emerald) !important;
-    box-shadow: 0 0 0 3px rgba(5,150,105,0.1) !important;
-}
-
-/* Radio */
-.stRadio > label { color: var(--text) !important; font-weight: 600 !important; font-size: 0.88rem !important; }
-
-/* Divider */
-.divider { border: none; border-top: 1.5px solid var(--border); margin: 24px 0; }
+/* Base Dataframe override for Dark mode */
+div[data-testid="stDataFrame"] { background-color: var(--card) !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -358,7 +297,7 @@ div[data-testid="stNumberInput"] input:focus {
 #  SESSION STATE
 # ─────────────────────────────────────────────
 if "app_name" not in st.session_state:
-    st.session_state.app_name = "AquaChem IKA"
+    st.session_state.app_name = "AquaChem IKA Pro"
 if "group_name" not in st.session_state:
     st.session_state.group_name = "Anggota Kelompok 4"
 if "group_desc" not in st.session_state:
@@ -371,47 +310,35 @@ if "group_desc" not in st.session_state:
     )
 if "web_desc" not in st.session_state:
     st.session_state.web_desc = (
-        "Aplikasi ini dikembangkan untuk membantu analisis kualitas air "
-        "berdasarkan parameter kimia utama yaitu pH, BOD, dan COD. "
-        "Gunakan slider di panel kiri untuk memasukkan nilai pengukuran lapangan."
+        "Aplikasi analisis kimia air kuantum untuk melacak indeks kualitas air, "
+        "keseimbangan anion-kation (aktivitas elektron bebas), serta beban organik mikrobial (bakteri) via pH, BOD, dan COD."
     )
+# Inisialisasi Database Penyimpanan Berulang
+if "sample_history" not in st.session_state:
+    st.session_state.sample_history = []
 
 # ─────────────────────────────────────────────
 #  REFERENCE DATA
 # ─────────────────────────────────────────────
 PH_REF = [
-    {"Kategori": "Sangat Asam / Sangat Basa (Berbahaya)", "Rentang": "< 5.0 atau > 9.0",
-     "Status": "Tercemar Berat", "Kelas": "bad"},
-    {"Kategori": "Asam / Basa Ringan", "Rentang": "5.0-6.0 atau 8.5-9.0",
-     "Status": "Tercemar Sedang", "Kelas": "warn"},
-    {"Kategori": "Mendekati Normal", "Rentang": "6.0-6.5 atau 8.0-8.5",
-     "Status": "Tercemar Ringan", "Kelas": "warn"},
-    {"Kategori": "Normal / Baku Mutu", "Rentang": "6.5 - 8.0",
-     "Status": "Memenuhi Baku Mutu", "Kelas": "good"},
+    {"Kategori": "Sangat Asam / Basa (Beban Ion Berbahaya)", "Rentang": "< 5.0 atau > 9.0", "Status": "Tercemar Berat", "Kelas": "bad"},
+    {"Kategori": "Asam / Basa Ringan (Ketidakseimbangan Anion/Kation)", "Rentang": "5.0-6.0 atau 8.5-9.0", "Status": "Tercemar Sedang", "Kelas": "warn"},
+    {"Kategori": "Mendekati Baku Mutu", "Rentang": "6.0-6.5 atau 8.0-8.5", "Status": "Tercemar Ringan", "Kelas": "warn"},
+    {"Kategori": "Normal / Keseimbangan Proton Ideal", "Rentang": "6.5 - 8.0", "Status": "Memenuhi Baku Mutu", "Kelas": "good"},
 ]
 BOD_REF = [
-    {"Kategori": "Sangat Baik (Air Bersih)", "Rentang": "< 2 mg/L",
-     "Status": "Tidak Tercemar", "Kelas": "good"},
-    {"Kategori": "Baik (Air Bersih)", "Rentang": "2 - 3 mg/L",
-     "Status": "Memenuhi Baku Mutu", "Kelas": "good"},
-    {"Kategori": "Tercemar Sedang", "Rentang": "3 - 6 mg/L",
-     "Status": "Tercemar Sedang", "Kelas": "warn"},
-    {"Kategori": "Tercemar Berat", "Rentang": "6 - 12 mg/L",
-     "Status": "Tercemar Berat", "Kelas": "bad"},
-    {"Kategori": "Sangat Tercemar Berat", "Rentang": "> 12 mg/L",
-     "Status": "Sangat Tercemar", "Kelas": "bad"},
+    {"Kategori": "Sangat Baik (Aktivitas Bakteri Rendah)", "Rentang": "< 2 mg/L", "Status": "Tidak Tercemar", "Kelas": "good"},
+    {"Kategori": "Baik (Aman Konsumsi)", "Rentang": "2 - 3 mg/L", "Status": "Memenuhi Baku Mutu", "Kelas": "good"},
+    {"Kategori": "Tercemar Sedang (Koloni Bakteri Meningkat)", "Rentang": "3 - 6 mg/L", "Status": "Tercemar Sedang", "Kelas": "warn"},
+    {"Kategori": "Tercemar Berat (Dekomposisi Masif)", "Rentang": "6 - 12 mg/L", "Status": "Tercemar Berat", "Kelas": "bad"},
+    {"Kategori": "Sangat Tercemar (Anoksik / Bakteri Membludak)", "Rentang": "> 12 mg/L", "Status": "Sangat Tercemar", "Kelas": "bad"},
 ]
 COD_REF = [
-    {"Kategori": "Sangat Baik", "Rentang": "< 10 mg/L",
-     "Status": "Tidak Tercemar", "Kelas": "good"},
-    {"Kategori": "Baik (Baku Mutu Kelas I/II)", "Rentang": "10 - 25 mg/L",
-     "Status": "Memenuhi Baku Mutu", "Kelas": "good"},
-    {"Kategori": "Tercemar Ringan-Sedang", "Rentang": "25 - 50 mg/L",
-     "Status": "Tercemar Sedang", "Kelas": "warn"},
-    {"Kategori": "Tercemar Berat", "Rentang": "50 - 100 mg/L",
-     "Status": "Tercemar Berat", "Kelas": "bad"},
-    {"Kategori": "Sangat Tercemar Berat", "Rentang": "> 100 mg/L",
-     "Status": "Sangat Tercemar", "Kelas": "bad"},
+    {"Kategori": "Sangat Baik (Bebas Reduktor Kimia)", "Rentang": "< 10 mg/L", "Status": "Tidak Tercemar", "Kelas": "good"},
+    {"Kategori": "Baik (Oksidasi Elektron Stabil)", "Rentang": "10 - 25 mg/L", "Status": "Memenuhi Baku Mutu", "Kelas": "good"},
+    {"Kategori": "Tercemar Ringan-Sedang", "Rentang": "25 - 50 mg/L", "Status": "Tercemar Sedang", "Kelas": "warn"},
+    {"Kategori": "Tercemar Berat (Polutan Kimiawi Tinggi)", "Rentang": "50 - 100 mg/L", "Status": "Tercemar Berat", "Kelas": "bad"},
+    {"Kategori": "Sangat Tercemar (Redoks Kritis)", "Rentang": "> 100 mg/L", "Status": "Sangat Tercemar", "Kelas": "bad"},
 ]
 
 # ─────────────────────────────────────────────
@@ -445,9 +372,9 @@ def calc_ika(ph_val, bod_val, cod_val):
     return round(ika, 1), ph_score, bod_score, cod_score
 
 def ika_category(score):
-    if score >= 80:   return "Baik", "#059669"
-    elif score >= 50: return "Tercemar Ringan-Sedang", "#D97706"
-    elif score >= 25: return "Tercemar Berat", "#DC2626"
+    if score >= 80:   return "Baik (Lestari)", "#00f5a0"
+    elif score >= 50: return "Tercemar Ringan-Sedang", "#ffb300"
+    elif score >= 25: return "Tercemar Berat", "#ff4a4a"
     else:             return "Sangat Tercemar Berat", "#991B1B"
 
 def status_chip(label, cls):
@@ -460,7 +387,7 @@ def render_ref_table(data):
         rows += f"<tr><td>{r['Kategori']}</td><td>{r['Rentang']}</td><td>{chip}</td></tr>"
     st.markdown(f"""
     <table class="ref-table">
-      <thead><tr><th>Kategori</th><th>Rentang</th><th>Status</th></tr></thead>
+      <thead><tr><th>Entitas Kimia / Bio</th><th>Rentang Nilai</th><th>Status Kuantum</th></tr></thead>
       <tbody>{rows}</tbody>
     </table>""", unsafe_allow_html=True)
 
@@ -470,89 +397,92 @@ def render_ref_table(data):
 with st.sidebar:
     st.markdown("""
     <div style="padding:18px 0 8px 0;">
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:1.1rem; font-weight:700; color:#059669;">
-            💧 AquaChem IKA
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:1.2rem; font-weight:700; color:#00f5a0;">
+            ⚛️ AquaChem IKA Pro
         </div>
-        <div style="color:#64748B; font-size:0.78rem; margin-top:4px;">
-            Indeks Kualitas Air — Parameter Kimia
+        <div style="color:#94a3b8; font-size:0.78rem; margin-top:4px;">
+            Atoms, Microbes & Water Quality Index
         </div>
     </div>
-    <hr style="border:none; border-top:1.5px solid #DDE3ED; margin:12px 0 20px 0;">
+    <hr style="border:none; border-top:1.5px solid #2d3d5a; margin:12px 0 20px 0;">
     """, unsafe_allow_html=True)
 
-    st.markdown("**Masukkan Nilai Parameter**")
+    st.markdown("### 📥 1. Entry Data Spektroskopi / Titrasi")
+    sample_id = st.text_input("Kode/Nama Sampel Air", value=f"SAMPEL-{len(st.session_state.sample_history)+1:03d}")
+    
+    input_mode = st.radio("Metode Analisis Lab", ["Langsung (Nilai)", "Dari Titrasi"], horizontal=True)
 
-    input_mode = st.radio("Mode Input", ["Langsung (Nilai)", "Dari Titrasi"], horizontal=True)
-
-    ph_val = st.number_input("pH", min_value=0.0, max_value=14.0, value=7.0, step=0.1,
-                             help="Skala 0-14. Baku mutu: 6.5-8.0")
+    # Indikator Aktivitas Ion [H]+ dan [OH]-
+    ph_val = st.number_input("Derajat Keasaman (pH)", min_value=0.0, max_value=14.0, value=7.0, step=0.1,
+                             help="Mengukur konsentrasi aktivitas elektron & ion Hidrogen.")
 
     if input_mode == "Langsung (Nilai)":
         bod_val = st.number_input("BOD (mg/L)", min_value=0.0, max_value=200.0, value=2.0, step=0.1,
-                                  help="Biochemical Oxygen Demand. Baku mutu: < 3 mg/L")
+                                  help="Konsumsi Oksigen oleh Mikroba/Bakteri dekomposer.")
         cod_val = st.number_input("COD (mg/L)", min_value=0.0, max_value=500.0, value=15.0, step=0.1,
-                                  help="Chemical Oxygen Demand. Baku mutu: < 25 mg/L")
+                                  help="Kebutuhan oksidasi kimia terhadap senyawa reduktor & ion polutan.")
     else:
-        st.markdown("""<div style="font-size:0.8rem; color:#059669; font-family:'IBM Plex Mono',monospace;
-                       margin:10px 0 4px 0; font-weight:600;">BOD — Titrasi Winkler</div>
-                    <div style="font-size:0.72rem; color:#64748B; margin-bottom:8px;">
-                    BOD = (V_blanko - V_sampel) x N x 8000 / V_sampel</div>""",
-                    unsafe_allow_html=True)
+        st.markdown("""<div style="font-size:0.8rem; color:#00f5a0; font-family:'IBM Plex Mono',monospace;
+                       margin:10px 0 4px 0; font-weight:600;">🦠 BOD — Respirasi Bakteri (Winkler)</div>""", unsafe_allow_html=True)
         col_b1, col_b2 = st.columns(2)
         with col_b1:
             bod_v_blanko   = st.number_input("V Blanko (mL)",  min_value=0.0, value=10.0,  step=0.01, key="bod_vb")
             bod_v_sampel_t = st.number_input("V Sampel (mL)",  min_value=0.0, value=8.5,   step=0.01, key="bod_vs")
         with col_b2:
-            bod_n        = st.number_input("N Na2S2O3",  min_value=0.0, value=0.025, step=0.001, format="%.4f", key="bod_n")
-            bod_v_sampel = st.number_input("V Air (mL)", min_value=0.1, value=100.0, step=1.0,   key="bod_ml")
+            bod_n        = st.number_input("Normalitas Na2S2O3",  min_value=0.0, value=0.025, step=0.001, format="%.4f", key="bod_n")
+            bod_v_sampel = st.number_input("V Air Sampel (mL)", min_value=0.1, value=100.0, step=1.0,   key="bod_ml")
         bod_val = round((bod_v_blanko - bod_v_sampel_t) * bod_n * 8000 / bod_v_sampel, 3) if bod_v_sampel > 0 else 0.0
-        st.markdown(f"""<div style="background:#ECFDF5; border:1px solid #6EE7B7; border-radius:8px;
-                    padding:8px 14px; font-size:0.83rem; margin:4px 0 14px 0; color:#065F46;">
-                    BOD terhitung: <b style="font-family:'IBM Plex Mono',monospace;">{bod_val} mg/L</b>
-                    </div>""", unsafe_allow_html=True)
 
-        st.markdown("""<div style="font-size:0.8rem; color:#7C3AED; font-family:'IBM Plex Mono',monospace;
-                       margin:4px 0 4px 0; font-weight:600;">COD — Titrasi FAS/Dikromat</div>
-                    <div style="font-size:0.72rem; color:#64748B; margin-bottom:8px;">
-                    COD = (V_blanko - V_sampel) x N x 8000 / V_sampel</div>""",
-                    unsafe_allow_html=True)
+        st.markdown("""<div style="font-size:0.8rem; color:#00d2ff; font-family:'IBM Plex Mono',monospace;
+                       margin:4px 0 4px 0; font-weight:600;">⚡ COD — Redoks Kation-Anion (FAS)</div>""", unsafe_allow_html=True)
         col_c1, col_c2 = st.columns(2)
         with col_c1:
             cod_v_blanko   = st.number_input("V Blanko (mL)",  min_value=0.0, value=15.0, step=0.01, key="cod_vb")
             cod_v_sampel_t = st.number_input("V Sampel (mL)",  min_value=0.0, value=12.0, step=0.01, key="cod_vs")
         with col_c2:
-            cod_n        = st.number_input("N FAS/KMnO4", min_value=0.0, value=0.1,  step=0.001, format="%.4f", key="cod_n")
-            cod_v_sampel = st.number_input("V Air (mL)",  min_value=0.1, value=20.0, step=1.0,   key="cod_ml")
+            cod_n        = st.number_input("Normalitas FAS", min_value=0.0, value=0.1,  step=0.001, format="%.4f", key="cod_n")
+            cod_v_sampel = st.number_input("V Air Sampel (mL)",  min_value=0.1, value=20.0, step=1.0,   key="cod_ml")
         cod_val = round((cod_v_blanko - cod_v_sampel_t) * cod_n * 8000 / cod_v_sampel, 3) if cod_v_sampel > 0 else 0.0
-        st.markdown(f"""<div style="background:#F5F3FF; border:1px solid #C4B5FD; border-radius:8px;
-                    padding:8px 14px; font-size:0.83rem; margin:4px 0 4px 0; color:#4C1D95;">
-                    COD terhitung: <b style="font-family:'IBM Plex Mono',monospace;">{cod_val} mg/L</b>
-                    </div>""", unsafe_allow_html=True)
 
-    st.markdown("<hr style='border:none;border-top:1.5px solid #DDE3ED;margin:20px 0;'>",
-                unsafe_allow_html=True)
+    # ─────────────────────────────────────────────
+    #  LOGIKA INPUT BERULANG (SIMPAN DATA)
+    # ─────────────────────────────────────────────
+    st.markdown("### 🗄️ 2. Penyimpanan Kuantum")
+    current_ika, p_s, b_s, c_s = calc_ika(ph_val, bod_val, cod_val)
+    current_cat, _ = ika_category(current_ika)
+    
+    if st.button("🧬 SIMPAN KE DATABASE HISTORIS"):
+        st.session_state.sample_history.append({
+            "ID Sampel": sample_id,
+            "pH": ph_val,
+            "BOD (mg/L)": bod_val,
+            "COD (mg/L)": cod_val,
+            "Skor IKA": current_ika,
+            "Kategori": current_cat
+        })
+        st.success(f"Sukses mengabadikan data {sample_id}!")
 
-    with st.expander("Pengaturan Aplikasi"):
-        new_app   = st.text_input("Nama Aplikasi",      value=st.session_state.app_name)
-        new_grp   = st.text_input("Nama Kelompok",      value=st.session_state.group_name)
-        new_gdesc = st.text_area("Deskripsi Kelompok",  value=st.session_state.group_desc, height=80)
-        new_wdesc = st.text_area("Deskripsi Website",   value=st.session_state.web_desc,   height=100)
-        if st.button("SIMPAN PENGATURAN"):
+    if st.session_state.sample_history:
+        if st.button("🗑️ Reset Riwayat Tabel"):
+            st.session_state.sample_history = []
+            st.rerun()
+
+    st.markdown("<hr style='border:none;border-top:1.5px solid #2d3d5a;margin:20px 0;'>", unsafe_allow_html=True)
+
+    with st.expander("⚙️ Konfigurasi Inti"):
+        new_app   = st.text_input("Nama Sistem",      value=st.session_state.app_name)
+        new_grp   = st.text_input("Konsorsium Pengembang", value=st.session_state.group_name)
+        new_gdesc = st.text_area("Manifestasi Tim",  value=st.session_state.group_desc, height=80)
+        new_wdesc = st.text_area("Deskripsi Operasional",   value=st.session_state.web_desc,   height=100)
+        if st.button("APPLY SIMULASI"):
             st.session_state.app_name  = new_app
             st.session_state.group_name = new_grp
             st.session_state.group_desc = new_gdesc
             st.session_state.web_desc   = new_wdesc
-            st.success("Pengaturan tersimpan!")
-
-    st.markdown("""
-    <div style="margin-top:24px; padding:14px; background:#F0FDF4;
-                border-radius:10px; border:1.5px solid #6EE7B7; font-size:0.75rem; color:#065F46;">
-        Referensi: PP No. 22/2021 & PermenLHK<br>Baku mutu air kelas II
-    </div>
-    """, unsafe_allow_html=True)
+            st.success("Modifikasi matriks berhasil!")
 
 # ─────────────────────────────────────────────
-#  CALCULATE
+#  LOGIKA PERHITUNGAN UTAMA (DATA AKTIF)
 # ─────────────────────────────────────────────
 ika_score, ph_si, bod_si, cod_si = calc_ika(ph_val, bod_val, cod_val)
 ika_cat, ika_color = ika_category(ika_score)
@@ -561,40 +491,40 @@ bod_label, bod_cls, _ = get_bod_status(bod_val)
 cod_label, cod_cls, _ = get_cod_status(cod_val)
 
 # ─────────────────────────────────────────────
-#  MAIN CONTENT — TABS
+#  MAIN CONTENT — TABS VIA NEON DESIGN
 # ─────────────────────────────────────────────
 st.markdown(f"""
 <div class="hero">
-    <div class="hero-badge">AQUACHEM IKA v2.0</div>
-    <div class="hero-title">Water Quality <span>Index</span></div>
-    <div class="hero-sub">Analisis kualitas air berbasis parameter kimia — pH, BOD, dan COD</div>
+    <div class="hero-badge">Bio-Chemical Redoks Matrix v3.0</div>
+    <div class="hero-title">{st.session_state.app_name}</div>
+    <div class="hero-sub">{st.session_state.web_desc}</div>
 </div>
 """, unsafe_allow_html=True)
 
-tab1, tab2, tab3 = st.tabs(["Dashboard", "Referensi Baku Mutu", "Tentang"])
+tab1, tab2, tab3, tab4 = st.tabs(["📊 Live Analytics Dashboard", "🗃️ Database Multi-Sampel", "🔬 Regulasi Baku Mutu", "🧬 Tim Riset"])
 
 # ══════════════════════ TAB 1 — DASHBOARD ══════════════════════
 with tab1:
-    # IKA Score strip
+    st.markdown(f"##### 📍 Hasil Analisis Sampel Aktif: `{sample_id}`")
     c_ika, c_ph, c_bod, c_cod = st.columns([1.4, 1, 1, 1])
 
     with c_ika:
         st.markdown(f"""
-        <div class="param-card" style="border-color:{ika_color}; background:linear-gradient(135deg,#FFFFFF,#F0FDF4);">
-            <div class="param-title">INDEKS KUALITAS AIR</div>
-            <div class="param-fullname">Skor IKA Gabungan (pH+BOD+COD)</div>
+        <div class="param-card" style="border-color:{ika_color}; background:linear-gradient(135deg, #1f293d, #11222e);">
+            <div class="param-title">TOTAL WATER QUALITY INDEX</div>
+            <div class="param-fullname">Skor Integrasi Redoks & Bakteri</div>
             <div class="param-value" style="color:{ika_color};">{ika_score}</div>
-            <div class="param-unit">dari 100</div>
+            <div class="param-unit">Skala Kuantum / 100</div>
             <span class="status-chip status-{'good' if ika_score>=80 else 'warn' if ika_score>=50 else 'bad'}">{ika_cat}</span>
         </div>
         """, unsafe_allow_html=True)
 
     for label, fullname, val, unit, lbl, cls in [
-        ("pH",  "Derajat Keasaman",       ph_val,  "skala",  ph_label,  ph_cls),
-        ("BOD", "Biochemical Oxygen Demand", bod_val, "mg/L", bod_label, bod_cls),
-        ("COD", "Chemical Oxygen Demand",    cod_val, "mg/L", cod_label, cod_cls),
+        ("pH (Ion H⁺)",  "Aktivitas Proton Elektron", ph_val,  "⚡ Log Konsetrasi",  ph_label,  ph_cls),
+        ("BOD (Mikroba)", "Dekomposisi Koloni Bakteri", bod_val, "🦠 mg O₂/L", bod_label, bod_cls),
+        ("COD (Anion/Kation)", "Oksidasi Kimia Polutan",    cod_val, "🧪 mg O₂/L", cod_label, cod_cls),
     ]:
-        col = c_ph if label == "pH" else c_bod if label == "BOD" else c_cod
+        col = c_ph if "pH" in label else c_bod if "BOD" in label else c_cod
         with col:
             st.markdown(f"""
             <div class="param-card">
@@ -608,114 +538,97 @@ with tab1:
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # Gauge charts
-    st.markdown('<div class="sec-head">VISUALISASI SUB-INDEKS</div>', unsafe_allow_html=True)
+    # Gauge charts (Dark Mode Styling)
+    st.markdown('<div class="sec-head">POTENSIAL SUB-INDEKS ENERGI</div>', unsafe_allow_html=True)
 
     def make_gauge(title, value, color):
-        c = {"good": "#059669", "warn": "#D97706", "bad": "#DC2626"}[color]
+        c = {"good": "#00f5a0", "warn": "#ffb300", "bad": "#ff4a4a"}[color]
         fig = go.Figure(go.Indicator(
             mode="gauge+number",
             value=value,
-            number={"font": {"size": 36, "family": "IBM Plex Mono"}, "suffix": "%"},
-            title={"text": title, "font": {"size": 13, "family": "Inter", "color": "#64748B"}},
+            number={"font": {"size": 36, "family": "IBM Plex Mono", "color": "#ffffff"}, "suffix": "%"},
+            title={"text": title, "font": {"size": 13, "family": "Inter", "color": "#94a3b8"}},
             gauge={
-                "axis": {"range": [0, 100], "tickwidth": 1, "tickcolor": "#DDE3ED",
-                          "tickfont": {"size": 10, "color": "#64748B"}},
+                "axis": {"range": [0, 100], "tickwidth": 1, "tickcolor": "#2d3d5a", "tickfont": {"size": 10, "color": "#94a3b8"}},
                 "bar": {"color": c, "thickness": 0.28},
-                "bgcolor": "#F8FAFC",
-                "borderwidth": 0,
+                "bgcolor": "#141b2d",
+                "borderwidth": 1,
+                "bordercolor": "#2d3d5a",
                 "steps": [
-                    {"range": [0, 25],  "color": "#FEE2E2"},
-                    {"range": [25, 50], "color": "#FEF3C7"},
-                    {"range": [50, 80], "color": "#D1FAE5"},
-                    {"range": [80, 100],"color": "#A7F3D0"},
+                    {"range": [0, 25],  "color": "rgba(255, 74, 74, 0.1)"},
+                    {"range": [25, 50], "color": "rgba(255, 179, 0, 0.1)"},
+                    {"range": [50, 80], "color": "rgba(0, 210, 255, 0.1)"},
+                    {"range": [80, 100],"color": "rgba(0, 245, 160, 0.1)"},
                 ],
-                "threshold": {"line": {"color": c, "width": 3}, "thickness": 0.8, "value": value},
             }
         ))
         fig.update_layout(
-            height=220, margin=dict(t=40, b=10, l=20, r=20),
-            paper_bgcolor="#FFFFFF", font_color="#1A202C",
+            height=200, margin=dict(t=40, b=10, l=20, r=20),
+            paper_bgcolor="rgba(0,0,0,0)", font_color="#e2e8f0",
         )
         return fig
 
     g1, g2, g3 = st.columns(3)
-    with g1: st.plotly_chart(make_gauge("Sub-Indeks pH",  ph_si,  ph_cls),  use_container_width=True)
-    with g2: st.plotly_chart(make_gauge("Sub-Indeks BOD", bod_si, bod_cls), use_container_width=True)
-    with g3: st.plotly_chart(make_gauge("Sub-Indeks COD", cod_si, cod_cls), use_container_width=True)
+    with g1: st.plotly_chart(make_gauge("Keseimbangan Proton [pH]",  ph_si,  ph_cls),  use_container_width=True)
+    with g2: st.plotly_chart(make_gauge("Respirasi Bio-Massa [BOD]", bod_si, bod_cls), use_container_width=True)
+    with g3: st.plotly_chart(make_gauge("Redoks Elektron Polutan [COD]", cod_si, cod_cls), use_container_width=True)
 
     # Radar + Bar
-    st.markdown('<div class="sec-head">GRAFIK ANALISIS</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sec-head">VEKTOR AFINITAS AIR</div>', unsafe_allow_html=True)
     left, right = st.columns(2)
 
     with left:
         fig_radar = go.Figure()
         fig_radar.add_trace(go.Scatterpolar(
             r=[ph_si, bod_si, cod_si, ph_si],
-            theta=["pH", "BOD", "COD", "pH"],
+            theta=["Ion Hidrogen (pH)", "Respirasi Bakteri (BOD)", "Stabilitas Redoks (COD)", "Ion Hidrogen (pH)"],
             fill="toself",
-            fillcolor="rgba(5,150,105,0.15)",
-            line=dict(color="#059669", width=2.5),
-            name="Sub-Indeks"
+            fillcolor="rgba(0, 245, 160, 0.1)",
+            line=dict(color="#00f5a0", width=2.5),
+            name="Kondisi Aktual Sampel"
         ))
         fig_radar.add_trace(go.Scatterpolar(
             r=[100, 100, 100, 100],
-            theta=["pH", "BOD", "COD", "pH"],
-            fill="toself",
-            fillcolor="rgba(221,227,237,0.3)",
-            line=dict(color="#DDE3ED", width=1.5, dash="dot"),
-            name="Ideal"
+            theta=["Ion Hidrogen (pH)", "Respirasi Bakteri (BOD)", "Stabilitas Redoks (COD)", "Ion Hidrogen (pH)"],
+            fill="none",
+            line=dict(color="#00d2ff", width=1.5, dash="dot"),
+            name="Ambang Ideal Murni"
         ))
         fig_radar.update_layout(
             polar=dict(
-                bgcolor="#F8FAFC",
-                radialaxis=dict(visible=True, range=[0, 100],
-                                tickfont=dict(size=9, color="#64748B"),
-                                gridcolor="#DDE3ED"),
-                angularaxis=dict(tickfont=dict(size=11, color="#1A202C", family="IBM Plex Mono"),
-                                 gridcolor="#DDE3ED"),
+                bgcolor="#141b2d",
+                radialaxis=dict(visible=True, range=[0, 100], gridcolor="#2d3d5a", tickfont=dict(color="#94a3b8")),
+                angularaxis=dict(gridcolor="#2d3d5a", tickfont=dict(color="#e2e8f0", family="IBM Plex Mono")),
             ),
             showlegend=True,
-            legend=dict(font=dict(size=10, color="#64748B")),
-            height=280, margin=dict(t=20, b=20, l=20, r=20),
-            paper_bgcolor="#FFFFFF",
+            legend=dict(font=dict(color="#94a3b8"), bgcolor="rgba(0,0,0,0)"),
+            height=300, margin=dict(t=30, b=30, l=40, r=40),
+            paper_bgcolor="rgba(0,0,0,0)",
         )
         st.plotly_chart(fig_radar, use_container_width=True)
 
     with right:
-        bar_colors = {
-            "good": "#059669", "warn": "#D97706", "bad": "#DC2626"
-        }
+        bar_colors = {"good": "#00f5a0", "warn": "#ffb300", "bad": "#ff4a4a"}
         fig_bar = go.Figure()
-        params_bar = [("pH", ph_val, ph_cls), ("BOD", bod_val, bod_cls), ("COD", cod_val, cod_cls)]
+        params_bar = [("pH Ion", ph_val, ph_cls), ("BOD Bakteri", bod_val, bod_cls), ("COD Kation", cod_val, cod_cls)]
         bm_vals    = [7.25, 3, 25]
+        
         for (pname, pval, pcls), bmv in zip(params_bar, bm_vals):
             fig_bar.add_trace(go.Bar(
-                name=pname,
-                x=[pname],
-                y=[pval],
-                marker_color=bar_colors[pcls],
-                marker_line_width=0,
-                opacity=0.9,
+                name=pname, x=[pname], y=[pval],
+                marker_color=bar_colors[pcls], opacity=0.85,
             ))
             fig_bar.add_trace(go.Scatter(
-                x=[pname], y=[bmv],
-                mode="markers",
-                marker=dict(symbol="line-ew", size=22, color="#1A202C",
-                            line=dict(width=2.5, color="#1A202C")),
-                name=f"BM {pname}",
-                showlegend=False,
+                x=[pname], y=[bmv], mode="markers",
+                marker=dict(symbol="line-ew", size=24, color="#00d2ff", line=dict(width=3, color="#00d2ff")),
+                name="Baku Mutu", showlegend=False
             ))
         fig_bar.update_layout(
-            barmode="group",
-            height=280,
-            margin=dict(t=20, b=20, l=20, r=20),
-            paper_bgcolor="#FFFFFF",
-            plot_bgcolor="#F8FAFC",
-            showlegend=False,
-            xaxis=dict(tickfont=dict(size=12, color="#1A202C", family="IBM Plex Mono"),
-                       gridcolor="#DDE3ED"),
-            yaxis=dict(tickfont=dict(size=10, color="#64748B"), gridcolor="#DDE3ED"),
+            height=300, margin=dict(t=30, b=30, l=20, r=20),
+            paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="#141b2d",
+            xaxis=dict(gridcolor="#2d3d5a", tickfont=dict(color="#e2e8f0", family="IBM Plex Mono")),
+            yaxis=dict(gridcolor="#2d3d5a", tickfont=dict(color="#94a3b8")),
+            showlegend=False
         )
         st.plotly_chart(fig_bar, use_container_width=True)
 
@@ -723,57 +636,86 @@ with tab1:
     box_map = {"good": "info-box", "warn": "warn-box", "bad": "bad-box"}
     st.markdown(f"""
     <div class="{box_map[ph_cls]}">
-        <b>pH {ph_val:.1f}</b> — {ph_label}.
-        Baku mutu kelas II: 6.5–8.0. Nilai {"dalam" if ph_cls=="good" else "di luar"} rentang normal.
+        ⚡ <b>Keseimbangan [H⁺] / [OH⁻] (pH {ph_val:.1f})</b> — {ph_label}.
+        Rentang normal fisis air berada pada pH 6.5–8.0. Tingkat keasaman yang radikal mengganggu afinitas transfer elektron substansi terlarut.
     </div>
     <div class="{box_map[bod_cls]}">
-        <b>BOD {bod_val:.2f} mg/L</b> — {bod_label}.
-        Baku mutu: &lt;3 mg/L. {"Memenuhi" if bod_cls=="good" else "Melebihi"} standar kualitas air.
+        🦠 <b>Metabolisme Bakteri Organik (BOD {bod_val:.2f} mg/L)</b> — {bod_label}.
+        Baku Mutu Kelas II menetapkan batas kritis &lt;3 mg/L. Kenaikan nilai ini menandakan populasi mikroba dekomposer membludak akibat akumulasi nutrien karbonaseus.
     </div>
     <div class="{box_map[cod_cls]}">
-        <b>COD {cod_val:.2f} mg/L</b> — {cod_label}.
-        Baku mutu: &lt;25 mg/L. {"Memenuhi" if cod_cls=="good" else "Melebihi"} standar kualitas air.
+        🧪 <b>Daya Oksidasi Kimia Anion-Kation (COD {cod_val:.2f} mg/L)</b> — {cod_label}.
+        Ambang batas standard &lt;25 mg/L. Ketidaksesuaian nilai merefleksikan tingginya reduktor polutan non-biodegradable serta interaksi redoks eksternal yang toksik.
     </div>
     """, unsafe_allow_html=True)
 
-# ══════════════════════ TAB 2 — REFERENSI ══════════════════════
+# ══════════════════════ TAB 2 — DATABASE MULTI-SAMPEL (INPUT BERULANG) ══════════════════════
 with tab2:
-    st.markdown('<div class="sec-head">BAKU MUTU pH</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sec-head">🗄️ REPOSITORI HISTORIS KUANTUM (REPEATED INPUTS)</div>', unsafe_allow_html=True)
+    st.write("Daftar sampel air yang telah Anda rekam berulang kali melalui panel input kiri:")
+    
+    if st.session_state.sample_history:
+        df_history = pd.DataFrame(st.session_state.sample_history)
+        
+        # Tampilkan tabel interaktif
+        st.dataframe(df_history, use_container_width=True, hide_index=True)
+        
+        # Visualisasi Komparasi Antar Sampel yang diinput berulang
+        st.markdown('<div class="sec-head">📈 GRAFIK TREN MULTI-SAMPEL</div>', unsafe_allow_html=True)
+        
+        fig_trend = px.line(
+            df_history, x="ID Sampel", y="Skor IKA", 
+            markers=True, text="Skor IKA",
+            title="Fluktuasi Kualitas Air Antar Komparasi Sampel Berulang"
+        )
+        fig_trend.update_traces(line_color="#00f5a0", marker=dict(size=10, color="#00d2ff"), textposition="top center")
+        fig_trend.update_layout(
+            paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="#141b2d",
+            font_color="#e2e8f0", title_font_family="IBM Plex Mono",
+            xaxis=dict(gridcolor="#2d3d5a"), yaxis=dict(gridcolor="#2d3d5a", range=[0, 105])
+        )
+        st.plotly_chart(fig_trend, use_container_width=True)
+        
+    else:
+        st.info("Belum ada sampel yang disimpan. Masukkan nilai parameter di sidebar kiri lalu klik tombol '🧬 SIMPAN KE DATABASE HISTORIS'.")
+
+# ══════════════════════ TAB 3 — REFERENSI ══════════════════════
+with tab3:
+    st.markdown('<div class="sec-head">⚛️ MATRIKS AMBANG ION pH</div>', unsafe_allow_html=True)
     render_ref_table(PH_REF)
-    st.markdown('<div class="sec-head">BAKU MUTU BOD</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sec-head">🦠 MATRIKS BIO-DEKOMPOSISI BOD</div>', unsafe_allow_html=True)
     render_ref_table(BOD_REF)
-    st.markdown('<div class="sec-head">BAKU MUTU COD</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sec-head">🧪 AMBANG REDOKS KATION-ANION COD</div>', unsafe_allow_html=True)
     render_ref_table(COD_REF)
     st.markdown("""
     <div class="info-box" style="margin-top:20px;">
-        Referensi: <b>PP No. 22 Tahun 2021</b> tentang Penyelenggaraan Perlindungan dan
-        Pengelolaan Lingkungan Hidup, dan <b>PermenLHK</b> tentang Baku Mutu Air Nasional.
-        Kelas II digunakan untuk prasarana/sarana rekreasi air, budidaya ikan air tawar,
-        peternakan, dan pengairan pertanaman.
+        📌 <b>Dasar Hukum & Validasi Teoretis:</b><br>
+        Mengacu pada ketetapan regulasi nasional <b>PP No. 22 Tahun 2021</b> (Lampiran VI, Kelas II). Baku mutu ini disusun secara spesifik guna menjaga kestabilan rantai trofik akuatik, kehidupan organisme mikro/makro pertambakan, sirkulasi kation magnesium/kalsium, pembatasan konsentrasi elektron hidrogen bebas, dan ekosistem air tawar nasional dari degradasi ekosistem anoksik.
     </div>
     """, unsafe_allow_html=True)
 
-# ══════════════════════ TAB 3 — TENTANG ══════════════════════
-with tab3:
+# ══════════════════════ TAB 4 — TENTANG TIM ══════════════════════
+with tab4:
     st.markdown(f"""
     <div class="about-card">
-        <div class="about-label">Tentang Aplikasi</div>
+        <div class="about-label">Sistem Operasi Digital</div>
         <div class="about-title">{st.session_state.app_name}</div>
         <div class="about-body">{st.session_state.web_desc}</div>
     </div>
     <div class="about-card">
-        <div class="about-label">Tim Pengembang</div>
+        <div class="about-label">Laboratorium Riset Pemilik Proyek</div>
         <div class="about-title">{st.session_state.group_name}</div>
-        <div class="about-body" style="white-space:pre-line;">{st.session_state.group_desc}</div>
+        <div class="about-body" style="white-space:pre-line; font-family:'IBM Plex Mono', monospace; color:#00d2ff;">{st.session_state.group_desc}</div>
     </div>
     <div class="about-card">
-        <div class="about-label">Metodologi</div>
-        <div class="about-title">Perhitungan IKA</div>
+        <div class="about-label">Algoritma Penimbang Bio-Kimia</div>
+        <div class="about-title">Formulasi Integral Sub-Indeks Kualitas Air</div>
         <div class="about-body">
-            Indeks Kualitas Air dihitung menggunakan sub-indeks tertimbang:<br><br>
-            <b>IKA = 0.30 × SI_pH + 0.35 × SI_BOD + 0.35 × SI_COD</b><br><br>
-            Kategori hasil: <b>Baik</b> (80-100) | <b>Tercemar Ringan-Sedang</b> (50-79) |
-            <b>Tercemar Berat</b> (25-49) | <b>Sangat Tercemar Berat</b> (0-24)
+            Fungsi objektif perhitungan IKA dihitung menggunakan kombinasi koefisien stoikiometri dampak lingkungan fisis-biologis:<br><br>
+            <span style="font-family:'IBM Plex Mono', monospace; color:#00f5a0; font-size:1.1rem;">
+            <b>IKA = 0.30 × SI_pH + 0.35 × SI_BOD + 0.35 × SI_COD</b>
+            </span><br><br>
+            Di mana tiap nilai <i>Sub-Index</i> (SI) diekstraksi dari efisiensi kurva baku konversi ion terlarut dan laju respirasi mikroba oksigen terlarut.
         </div>
     </div>
     """, unsafe_allow_html=True)
